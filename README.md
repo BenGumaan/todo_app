@@ -1,41 +1,124 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vite + ShadCN Starter
 
-## Getting Started
+A modern and customizable starter template for React applications using **Vite**, **ShadCN**, **Tailwind CSS**, and other essential libraries. This setup is optimized for fast development and scalable UI components.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- ⚡ **Vite** - Superfast development environment
+- 🎨 **ShadCN** - Prebuilt and customizable UI components
+- 🎭 **Tailwind CSS** - Utility-first CSS framework
+- 📜 **React Router** - Declarative routing
+- 📩 **React Hook Form** - Powerful form management
+- 🔥 **Sonner (Toast)** - Beautiful toast notifications
+- ✅ **ESLint & Prettier** - Code linting and formatting
+
+---
+
+## 📂 Folder Structure
+
+```
+📦 vite-shadcn-starter
+ ┣ 📂 public
+ ┣ 📂 src
+ ┃ ┣ 📂 assets
+ ┃ ┃ ┗ 📜 react.svg
+ ┃ ┣ 📂 components
+ ┃ ┃ ┣ 📂 shared
+ ┃ ┃ ┃ ┗ 📜 header.tsx
+ ┃ ┃ ┣ 📂 ui
+ ┃ ┃ ┃ ┣ 📜 button.tsx
+ ┃ ┃ ┃ ┣ 📜 card.tsx
+ ┃ ┃ ┃ ┣ 📜 form.tsx
+ ┃ ┃ ┃ ┣ 📜 input.tsx
+ ┃ ┃ ┃ ┣ 📜 label.tsx
+ ┃ ┃ ┃ ┗ 📜 sonner.tsx
+ ┃ ┣ 📂 lib
+ ┃ ┃ ┗ 📜 utils.ts
+ ┃ ┣ 📂 pages
+ ┃ ┃ ┣ 📂 login
+ ┃ ┃ ┣ 📂 main
+ ┃ ┣ 📂 routes
+ ┃ ┃ ┣ 📂 layout
+ ┃ ┃ ┃ ┗ 📜 index.tsx
+ ┃ ┃ ┣ 📜 protectedRoutes.tsx
+ ┃ ┃ ┣ 📜 publicRoutes.tsx
+ ┃ ┣ 📜 App.tsx
+ ┃ ┣ 📜 main.tsx
+ ┃ ┣ 📜 index.css
+ ┃ ┣ 📜 vite-env.d.ts
+ ┣ 📜 .gitignore
+ ┣ 📜 components.json
+ ┣ 📜 eslint.config.js
+ ┣ 📜 index.html
+ ┣ 📜 LICENSE
+ ┣ 📜 package.json
+ ┣ 📜 package-lock.json
+ ┣ 📜 README.md
+ ┣ 📜 tsconfig.app.json
+ ┣ 📜 tsconfig.json
+ ┣ 📜 tsconfig.node.json
+ ┗ 📜 vite.config.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Clone the repository and install dependencies:
 
-## Learn More
+```sh
+git clone https://github.com/Niteshcodes/vite-shadcn-starter.git
+cd vite-shadcn-starter
+pnpm install  # or npm install / yarn install
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 💻 Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Run the development server:
 
-## Deploy on Vercel
+```sh
+pnpm dev  # or npm run dev / yarn dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Build for production:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-=======
-# todo_app
-This is a React todo app using TypeScript.
->>>>>>> b85ce76a49a23000ebbc667c68d9223149afd5d8
+```sh
+pnpm build  # or npm run build / yarn build
+```
+
+Preview production build:
+
+```sh
+pnpm preview  # or npm run preview / yarn preview
+```
+
+---
+
+## 🧩 Technologies Used
+
+- [Vite](https://vitejs.dev/)
+- [React](https://react.dev/)
+- [ShadCN](https://ui.shadcn.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Router](https://reactrouter.com/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Sonner (Toast)](https://sonner.dev/)
+- [Zod](https://zod.dev/) (for form validation)
+- [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/)
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## ⭐ Like this project?
+
+Give a ⭐ on [GitHub](https://github.com/Niteshcodes/vite-shadcn-starter) to support this project!
+
+---
+
