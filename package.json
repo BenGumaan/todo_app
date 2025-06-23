@@ -1,5 +1,7 @@
 {
-  "name": "vite-shadcn-starter",
+  "name": "todo-app",
+  "description": "A simple todo app built with React, TypeScript, and Vite.",
+  "author": "Mohammed Gumaan < ben.gumaan@gmail.com>",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,8 +13,11 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
+    "@radix-ui/react-accordion": "^1.2.11",
+    "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-label": "^2.1.2",
-    "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-navigation-menu": "^1.2.13",
+    "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.0.14",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -23,7 +28,7 @@
     "react-hook-form": "^7.54.2",
     "react-router": "^7.3.0",
     "sonner": "^2.0.1",
-    "tailwind-merge": "^3.0.2",
+    "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.0.14",
     "tw-animate-css": "^1.2.4",
     "zod": "^3.24.2"
@@ -42,5 +47,4 @@
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0"
   }
-
 }
