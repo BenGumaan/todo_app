@@ -1,7 +1,7 @@
 {
   "name": "todo-app",
   "description": "A simple todo app built with React, TypeScript, and Vite.",
-  "author": "Mohammed Gumaan < ben.gumaan@gmail.com>",
+  "author": "Mohammed Gumaan <ben.gumaan@gmail.com>",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -14,6 +14,7 @@
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
     "@radix-ui/react-accordion": "^1.2.11",
+    "@radix-ui/react-checkbox": "^1.3.2",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-navigation-menu": "^1.2.13",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
