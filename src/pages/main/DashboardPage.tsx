@@ -1,30 +1,68 @@
 import { useEffect, useState } from "react";
 import { TaskList } from "@/components/TaskList";
-import { Button } from "@/components/ui/button";
-import data from "@/data/tasks.json"; // Assuming you have a tasks data file
+import { AddTaskDialog } from "@/components/AddTaskDialog";
+// import data from "@/data/tasks.json";
 
+type FormData = {
+  taskName: string;
+  description: string;
+  categories: string[];
+};
+
+type Task = {
+  id: string;
+  text: string;
+  completed: boolean;
+  tags: string[];
+  description?: string;
+  createdAt?: string;
+  date?: string;
+};
 
 const DashboardPage = () => {
 
-    const tasksData = data as { id: string; text: string; completed: boolean; tags: string[]; description?: string }[];
-    const [tasks, setTasks] = useState(tasksData);
+    // const tasksData = data as { id: string; text: string; completed: boolean; tags: string[]; description?: string, createdAt?: string, date?: string }[];
+    const [tasks, setTasks] = useState<Task[]>(localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')!) : []);
+    console.log("Tasks data:", tasks);
 
     const handleToggle = (id: string) => {
-        setTasks(prevTasks => {
-            return prevTasks.map(task => {
-                if (task.id === id) {
-                    return { ...task, completed: !task.completed };
-                }
-                return task;
-            });
+      setTasks(prevTasks => {
+        return prevTasks.map(task => {
+          if (task.id === id) {
+              return { ...task, completed: !task.completed };
+          }
+          return task;
         });
+      });
     };
     const handleDelete = (id: string) => {
         setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
     };
+    
+    const handleAdd = (data: FormData) => {
+      const now = new Date();
+      const newTask = {
+        id: (Math.random() * 10000).toString(),
+        text: data.taskName,
+        completed: false, 
+        tags: data.categories,
+        description: data.description,
+        createdAt: now.toLocaleTimeString(),
+        date: now.toLocaleDateString("en-GB"),
+      };
+      console.log("Adding new task:", data);
+      
+      const updated = [...tasks, newTask];
+      localStorage.setItem('tasks', JSON.stringify(updated));
+      return updated;
+    };
 
     useEffect(() => {
-    }, []);
+      const stored = localStorage.getItem('tasks');
+      if (stored) {
+        setTasks(JSON.parse(stored));
+      }
+    }, [tasks]);
 
   return (
     <div className="flex flex-col items-start min-h-screen bg-secondary p-4">
@@ -37,13 +75,14 @@ const DashboardPage = () => {
       <div className="mt-6">
         <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold mb-2">Your Tasks:</h2>
-            <Button>Add task</Button>
+            <AddTaskDialog onAdd={(data) => handleAdd(data)} />
+            <dialog id="addTaskDialog" className="modal"></dialog>
         </div>
         {(Array.isArray(tasks) && tasks.length !== 0)? (
           <TaskList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} />
         ) : (
           <p className="text-muted-foreground">You currently have no tasks. Click the button "Add task" to add a new task.</p>
-        )}      
+        )}    
       </div>
     </div>
   );

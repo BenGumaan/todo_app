@@ -6,6 +6,7 @@ type Task = {
   completed: boolean
   tags: string[]
   description?: string
+  createdAt?: string
   date?: string
 }
 

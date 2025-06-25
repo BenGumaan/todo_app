@@ -5,6 +5,7 @@
     "completed": false,
     "tags": ["python", "java", "c#"],
     "description": "This is a sample task description.",
+    "createdAt": "2025-06-25T10:22:29.718Z",
     "date": "2023-10-01"
   },
   {
@@ -13,7 +14,8 @@
     "completed": true,
     "tags": ["python", "java", "c#"],
     "description": "This is another task description. It is completed. This task is used for testing purposes. It has multiple tags. It is a sample task.",
-    "date": "2023-10-02"
+    "createdAt": "2025-06-25T10:22:29.718Z",
+    "date": "2023-10-01"
   },
   {
     "id": "3",
@@ -21,6 +23,7 @@
     "completed": false,
     "tags": ["C++", "java", "c#"],
     "description": "This is yet another task description.",
-    "date": "2023-10-03"
+    "createdAt": "2025-06-25T10:22:29.718Z",
+    "date": "2023-10-01"
   }
 ]

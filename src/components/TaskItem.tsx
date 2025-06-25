@@ -10,6 +10,7 @@ type Task = {
   completed: boolean,
   tags: string[],
   description?: string
+  createdAt?: string
   date?: string
 }
 
@@ -49,7 +50,7 @@ export function TaskItem({ task, onToggle, onDelete }: TaskItemProps) {
               <span className="opacity-50">|</span>
               <div className="flex items-center gap-1">
                 <Timer size={16} />
-                <time dateTime={task.id}>{task.id} ms ago</time>
+                <time dateTime={task.createdAt}>{task.createdAt}</time>
               </div>
             </div>
             <div>
