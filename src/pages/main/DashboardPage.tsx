@@ -31,6 +31,8 @@ const DashboardPage = () => {
           if (task.id === id) {
               return { ...task, completed: !task.completed };
           }
+          console.log("Task not found or already toggled:", task.id, id);
+          
           return task;
         });
       });
@@ -49,19 +51,20 @@ const DashboardPage = () => {
         description: data.description,
         createdAt: now.toLocaleTimeString(),
         date: now.toLocaleDateString("en-GB"),
-      };
-      console.log("Adding new task:", data);
-      
+      };      
       const updated = [...tasks, newTask];
-      localStorage.setItem('tasks', JSON.stringify(updated));
-      return updated;
+      setTasks(updated);
     };
 
     useEffect(() => {
       const stored = localStorage.getItem('tasks');
       if (stored) {
-        setTasks(JSON.parse(stored));
+        setTasks(() => JSON.parse(stored));
       }
+    }, []);
+    
+    useEffect(() => {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
     }, [tasks]);
 
   return (
