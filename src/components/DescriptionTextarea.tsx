@@ -12,7 +12,7 @@ const DescriptionTextarea = ({ label, value, onChange }: DescriptionTextareaProp
   const id = useId()
 
   return (
-    <div className='w-full max-w-xs space-y-2'>
+    <div className='w-full space-y-2'>
       <div className='flex items-center justify-between gap-1'>
         <Label htmlFor={id}>{label}</Label>
         <span className='text-muted-foreground text-xs'>Optional field</span>

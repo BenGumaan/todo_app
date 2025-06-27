@@ -67,7 +67,7 @@ export const AddTaskDialog: FC<AddTaskDialogProps> = ({ onAdd }) => {
           className="space-y-6">
 
           <div>
-            <Label htmlFor="task-name">Task Name</Label>
+            <Label htmlFor="task-name" className='mb-2'>Task Name</Label>
             <Controller
               name="taskName"
               control={control}
@@ -107,7 +107,7 @@ export const AddTaskDialog: FC<AddTaskDialogProps> = ({ onAdd }) => {
           </div>
 
           <div>
-            <Label>Categories</Label>
+            <Label className='mb-2'>Categories</Label>
             <Controller
               control={control}
               name="categories"

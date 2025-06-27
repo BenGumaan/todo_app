@@ -41,6 +41,17 @@ const DashboardPage = () => {
         setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
     };
     
+    const handleEdit = (id: string) => {
+      setTasks(prevTasks => {
+        return prevTasks.map(task => {
+          if (task.id === id) {
+              return { ...task, completed: !task.completed };
+          }          
+          return task;
+        });
+      });
+    };
+    
     const handleAdd = (data: FormData) => {
       const now = new Date();
       const newTask = {
@@ -82,7 +93,7 @@ const DashboardPage = () => {
             <dialog id="addTaskDialog" className="modal"></dialog>
         </div>
         {(Array.isArray(tasks) && tasks.length !== 0)? (
-          <TaskList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} />
+          <TaskList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} onEdit={handleEdit} />
         ) : (
           <p className="text-muted-foreground">You currently have no tasks. Click the button "Add task" to add a new task.</p>
         )}    
