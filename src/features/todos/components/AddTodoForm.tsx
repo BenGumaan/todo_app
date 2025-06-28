@@ -11,9 +11,9 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import DescriptionTextarea from './DescriptionTextarea'
-import { MultiCombobox } from './MultiCombobox'
+import { MultiCombobox } from '@/components/ui/multi-combobox'
 import { FC, useState } from 'react'
+import { Textarea } from '@/components/ui/textarea'
 
 const categoryOptions = [
   { label: 'Home', value: 'home' },
@@ -27,12 +27,12 @@ type FormData = {
   categories: string[]
 }
 
-interface AddTaskDialogProps {
+interface AddTodoFormProps {
   onAdd: (data: FormData) => void;
 }
 
-export const AddTaskDialog: FC<AddTaskDialogProps> = ({ onAdd }) => {
-  const [open, setOpen] = useState(false); // <-- add this
+export const AddTodoForm: FC<AddTodoFormProps> = ({ onAdd }) => {
+  const [open, setOpen] = useState(false);
 
   const { control, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
     defaultValues: {
@@ -87,14 +87,14 @@ export const AddTaskDialog: FC<AddTaskDialogProps> = ({ onAdd }) => {
           </div>
 
           <div>
+            <Label htmlFor="task-description" className='mb-2'>Task Description</Label>
             <Controller
               name="description"
               control={control}
               rules={{ required: 'Task description is required' }}
               render={({ field }) => (
                 <div>
-                  <DescriptionTextarea
-                    label="Task Description"
+                  <Textarea
                     value={field.value}
                     onChange={e => field.onChange(e.target.value)}
                   />

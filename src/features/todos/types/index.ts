@@ -1,4 +1,4 @@
-export type Task = {
+export interface Todo {
   id: string;
   text: string;
   completed: boolean;
@@ -8,7 +8,7 @@ export type Task = {
   date?: string;
 }
 
-export type FormData = {
+export interface TodoFormData {
   taskName: string;
   description: string;
   categories: string[];
