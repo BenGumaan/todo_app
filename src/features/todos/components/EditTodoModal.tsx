@@ -1,5 +1,5 @@
 import { useForm, Controller } from 'react-hook-form'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import {
   Dialog,
   DialogClose,
@@ -9,12 +9,12 @@ import {
   DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { MultiCombobox } from '@/components/ui/multi-combobox'
+import { Input } from '@/components/ui'
+import { Label } from '@/components/ui'
+import { MultiCombobox } from '@/components/ui'
 import { useState } from 'react'
-import { Textarea } from '@/components/ui/textarea'
-import { TodoFormData, Todo } from "@/features/todos/types";
+import { Textarea } from '@/components/ui'
+import { TodoFormData, Todo } from "@/features/todos";
 
 const categoryOptions = [
   { label: 'Home', value: 'home' },

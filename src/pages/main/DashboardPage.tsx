@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { TodoList } from "@/components/todo/TodoList";
+import { TodoList } from "@/features/todos/components/TodoList";
 import { AddTodoForm } from "@/features/todos/components/AddTodoForm";
 import { Todo, TodoFormData } from "@/features/todos/types";
+import { getStoredData, setStoredData } from "@/lib";
 
 const DashboardPage = () => {
 
-    const [tasks, setTasks] = useState<Todo[]>(localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')!) : []);
+    const [tasks, setTasks] = useState<Todo[]>([]);
+    // const [tasks, setTasks] = useState<Todo[]>(getStoredData() || []); // Initialize with stored data or empty array
+    // const [tasks, setTasks] = useState<Todo[]>(localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")!) : []);
 
     const handleToggle = (id: string) => {
       setTasks(prevTasks => {
@@ -35,7 +38,7 @@ const DashboardPage = () => {
     const handleAdd = (data: TodoFormData) => {
       const now = new Date();
       const newTask: Todo = {
-        id: (Math.random() * 10000).toString(),
+        id: crypto.randomUUID(),
         text: data.taskName,
         completed: false, 
         tags: data.categories,
@@ -48,14 +51,14 @@ const DashboardPage = () => {
     };
 
     useEffect(() => {
-      const stored = localStorage.getItem('tasks');
-      if (stored) {
-        setTasks(() => JSON.parse(stored));
+      const stored = getStoredData();
+      if (stored && Array.isArray(stored)) {
+        setTasks(stored);
       }
     }, []);
     
     useEffect(() => {
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+      setStoredData(tasks);
     }, [tasks]);
 
   return (
@@ -71,7 +74,7 @@ const DashboardPage = () => {
             <h2 className="text-xl font-semibold mb-2">Your Tasks:</h2>
             <AddTodoForm onAdd={(data) => handleAdd(data)} />
         </div>
-        {(Array.isArray(tasks) && tasks.length !== 0)? (
+        {tasks.length > 0 ? (
           <TodoList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} onEdit={handleEdit} />
         ) : (
           <p className="text-muted-foreground">You currently have no tasks. Click the button "Add task" to add a new task.</p>

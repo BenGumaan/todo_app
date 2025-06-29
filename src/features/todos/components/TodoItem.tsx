@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { DeleteTodoPrompt } from "@/features/todos/components/DeleteTodoPrompt";
 import { EditTodoModal } from "@/features/todos/components/EditTodoModal";
 import { Todo, TodoFormData } from "@/features/todos/types";
+import TodoDetailsModal from '@/features/todos/components/TodoDetailsModal';
 
 type TodoItemProps = {
   task: Todo
@@ -29,11 +30,14 @@ export function TodoItem({ task, onToggle, onDelete, onEdit }: TodoItemProps) {
             <label
               htmlFor={`task-${task.id}`}
               className={cn(
-                "text-base",
-                task.completed && "line-through text-muted-foreground"
+                "text-base"
               )}
             >
-              <h3 className="my-2 text-2xl font-bold text-foreground">{task.text}</h3>
+            <TodoDetailsModal todo={task}>
+              <button className="text-left hover:underline cursor-pointer">
+                <h3 className={cn("my-2 text-2xl font-bold text-foreground", task.completed && "line-through text-muted-foreground")}>{task.text}</h3>
+              </button>
+            </TodoDetailsModal>
             </label>
           </div>
           <div>

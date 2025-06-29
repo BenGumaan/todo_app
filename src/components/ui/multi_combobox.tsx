@@ -9,7 +9,7 @@ import {
   Command, CommandInput, CommandEmpty,
   CommandGroup, CommandItem, CommandList,
 } from '@/components/ui/command'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { ScrollArea } from '@/components/ui'
 
 interface Option { value: string; label: string }
 interface Props {

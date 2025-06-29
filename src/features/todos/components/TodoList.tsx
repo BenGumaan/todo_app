@@ -1,5 +1,5 @@
-import { Todo, TodoFormData } from "@/features/todos/types"
-import { TodoItem } from "./TodoItem"
+import { Todo, TodoFormData } from "@/features/todos"
+import { TodoItem } from "@/features/todos"
 
 type TodoListProps = {
   tasks: Todo[]
