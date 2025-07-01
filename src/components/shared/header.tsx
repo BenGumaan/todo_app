@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router";
 
-export function Header() {
+function Header() {
   const navigate = useNavigate();
   return (
     <header className="flex justify-end items-center min-h-[10vh] bg-secondary p-4">

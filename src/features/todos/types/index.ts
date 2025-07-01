@@ -12,5 +12,4 @@ export interface TodoFormData {
   taskName: string;
   description: string;
   categories: string[];
-};
-
+}

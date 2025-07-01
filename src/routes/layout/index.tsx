@@ -1,5 +1,4 @@
-import Header from "@/components/shared/Header";
-import Footer from "@/components/shared/Footer";
+import { Header, Footer } from "@/components/shared";
 import { Outlet } from "react-router";
 
 export default function MainLayout() {
