@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:debug": "vite build --debug",
     "lint": "eslint . --ext ts,tsx",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "lint:preview": "eslint . --ext ts,tsx --fix-dry-run --format=codeframe",
