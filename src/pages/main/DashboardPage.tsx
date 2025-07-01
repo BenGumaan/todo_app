@@ -5,61 +5,65 @@ import { Todo, TodoFormData } from "@/features/todos/types";
 import { getStoredData, setStoredData } from "@/lib";
 
 const DashboardPage = () => {
+  const [tasks, setTasks] = useState<Todo[]>([]);
+  // const [tasks, setTasks] = useState<Todo[]>(getStoredData() || []); // Initialize with stored data or empty array
+  // const [tasks, setTasks] = useState<Todo[]>(localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")!) : []);
 
-    const [tasks, setTasks] = useState<Todo[]>([]);
-    // const [tasks, setTasks] = useState<Todo[]>(getStoredData() || []); // Initialize with stored data or empty array
-    // const [tasks, setTasks] = useState<Todo[]>(localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")!) : []);
+  const handleToggle = (id: string) => {
+    setTasks((prevTasks) => {
+      return prevTasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, completed: !task.completed };
+        }
 
-    const handleToggle = (id: string) => {
-      setTasks(prevTasks => {
-        return prevTasks.map(task => {
-          if (task.id === id) {
-              return { ...task, completed: !task.completed };
-          }
-          
-          return task;
-        });
+        return task;
       });
-    };
-    const handleDelete = (id: string) => {
-      setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
-    };
-    
-    const handleEdit = (id: string, data: TodoFormData) => {
-      setTasks(prevTasks =>
-        prevTasks.map(task =>
-          task.id === id
-            ? { ...task, text: data.taskName, tags: data.categories, description: data.description }
-            : task
-        )
-      );
-    };
+    });
+  };
+  const handleDelete = (id: string) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  };
 
-    const handleAdd = (data: TodoFormData) => {
-      const now = new Date();
-      const newTask: Todo = {
-        id: crypto.randomUUID(),
-        text: data.taskName,
-        completed: false, 
-        tags: data.categories,
-        description: data.description,
-        createdAt: now.toLocaleTimeString(),
-        date: now.toLocaleDateString("en-GB"),
-      };      
-      const updated = [...tasks, newTask];
-      setTasks(updated);
-    };
+  const handleEdit = (id: string, data: TodoFormData) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              text: data.taskName,
+              tags: data.categories,
+              description: data.description,
+            }
+          : task
+      )
+    );
+  };
 
-    useEffect(() => {
-      const stored = getStoredData();
-      if (stored && Array.isArray(stored)) {
-        setTasks(stored);
-      }
-    }, []);
-    
-    useEffect(() => {
-      setStoredData(tasks);
-    }, [tasks]);
+  const handleAdd = (data: TodoFormData) => {
+    const now = new Date();
+    const newTask: Todo = {
+      id: crypto.randomUUID(),
+      text: data.taskName,
+      completed: false,
+      tags: data.categories,
+      description: data.description,
+      createdAt: now.toLocaleTimeString(),
+      date: now.toLocaleDateString("en-GB"),
+    };
+    const updated = [...tasks, newTask];
+    setTasks(updated);
+  };
+
+  useEffect(() => {
+    const stored: unknown = getStoredData();
+    if (Array.isArray(stored)) {
+      setTasks(stored as Todo[]);
+    }
+  }, []);
+
+  useEffect(() => {
+    setStoredData(tasks);
+  }, [tasks]);
 
   return (
     <div className="flex flex-col items-start min-h-screen bg-secondary p-4">
@@ -71,14 +75,22 @@ const DashboardPage = () => {
       </p>
       <div className="mt-6">
         <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold mb-2">Your Tasks:</h2>
-            <AddTodoForm onAdd={(data) => handleAdd(data)} />
+          <h2 className="text-xl font-semibold mb-2">Your Tasks:</h2>
+          <AddTodoForm onAdd={(data) => handleAdd(data)} />
         </div>
         {tasks.length > 0 ? (
-          <TodoList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} onEdit={handleEdit} />
+          <TodoList
+            tasks={tasks}
+            onToggle={handleToggle}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
+          />
         ) : (
-          <p className="text-muted-foreground">You currently have no tasks. Click the button "Add task" to add a new task.</p>
-        )}    
+          <p className="text-muted-foreground">
+            You currently have no tasks. Click the button "Add task" to add a
+            new task.
+          </p>
+        )}
       </div>
     </div>
   );
