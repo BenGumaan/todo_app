@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm install --legacy-peer-deps && vite build && vite build",
+    "build": "vite build",
     "lint": "eslint . --ext ts,tsx",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "lint:preview": "eslint . --ext ts,tsx --fix-dry-run --format=codeframe",
