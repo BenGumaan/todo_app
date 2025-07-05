@@ -6,8 +6,6 @@ import { getStoredData, setStoredData } from "@/lib";
 
 const DashboardPage = () => {
   const [tasks, setTasks] = useState<Todo[]>([]);
-  // const [tasks, setTasks] = useState<Todo[]>(getStoredData() || []); // Initialize with stored data or empty array
-  // const [tasks, setTasks] = useState<Todo[]>(localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")!) : []);
 
   const handleToggle = (id: string) => {
     setTasks((prevTasks) => {
