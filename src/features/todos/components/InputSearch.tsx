@@ -1,15 +1,14 @@
 import { useEffect, useId, useState } from "react";
 import { LoaderCircleIcon, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Todo } from "../types";
 
 interface InputSearchProps {
-  tasks: Todo[];
-  onSearchResults: (filteredTasks: Todo[]) => void;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
 }
 
-const InputSearch = ({ tasks, onSearchResults }: InputSearchProps) => {
-  const [value, setValue] = useState("");
+const InputSearch = ({ value, onChange, placeholder }: InputSearchProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const id = useId();
@@ -19,19 +18,14 @@ const InputSearch = ({ tasks, onSearchResults }: InputSearchProps) => {
       setIsLoading(true);
 
       const timer = setTimeout(() => {
-        const filteredTasks = tasks.filter((task: Todo) =>
-          task.text.toLowerCase().includes(value.toLowerCase())
-        );
-        onSearchResults(filteredTasks);
         setIsLoading(false);
       }, 100);
 
       return () => clearTimeout(timer);
     } else {
       setIsLoading(false);
-      onSearchResults(tasks);
     }
-  }, [value, tasks]);
+  }, [value]);
 
   return (
     <div className="w-full space-y-2">
@@ -43,9 +37,9 @@ const InputSearch = ({ tasks, onSearchResults }: InputSearchProps) => {
         <Input
           id={id}
           type="search"
-          placeholder="Search..."
+          placeholder={placeholder || "Search tasks..."}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           className="peer px-9 [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none [&::-webkit-search-results-button]:appearance-none [&::-webkit-search-results-decoration]:appearance-none"
         />
         {isLoading && (

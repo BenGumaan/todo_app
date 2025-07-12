@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { TodoList } from "@/features/todos/components/TodoList";
 import { AddTodoForm } from "@/features/todos/components/AddTodoForm";
 import { Todo, TodoFormData } from "@/features/todos/types";
@@ -8,18 +8,21 @@ import { Funnel } from "lucide-react";
 
 const DashboardPage = () => {
   const [tasks, setTasks] = useState<Todo[]>([]);
-  const [displayedTasks, setDisplayedTasks] = useState<Todo[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const displayedTasks = useMemo(() => {
+    if (!searchTerm.trim()) return tasks;
+    return tasks.filter((task) =>
+      task.text.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [tasks, searchTerm]);
 
   const handleToggle = (id: string) => {
-    setTasks((prevTasks) => {
-      return prevTasks.map((task) => {
-        if (task.id === id) {
-          return { ...task, completed: !task.completed };
-        }
-
-        return task;
-      });
-    });
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
   };
   const handleDelete = (id: string) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
@@ -54,14 +57,6 @@ const DashboardPage = () => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
 
-  const handleSearchResults = (searchResults: Todo[]) => {
-    setDisplayedTasks(searchResults);
-  };
-
-  useEffect(() => {
-    setDisplayedTasks(tasks);
-  }, [tasks]);
-
   useEffect(() => {
     const stored: unknown = getStoredData();
     if (Array.isArray(stored)) {
@@ -93,12 +88,12 @@ const DashboardPage = () => {
             You currently have {tasks.length} tasks.
           </p>
           <div className="flex w-full items-center justify-between gap-5 mb-4">
-            <InputSearch tasks={tasks} onSearchResults={handleSearchResults} />
+            <InputSearch value={searchTerm} onChange={setSearchTerm} />
             <span>
               <Funnel className="size-5" />
             </span>
           </div>
-          {tasks.length > 0 ? (
+          {displayedTasks.length > 0 ? (
             <TodoList
               tasks={displayedTasks}
               onToggle={handleToggle}
@@ -107,8 +102,9 @@ const DashboardPage = () => {
             />
           ) : (
             <p className="text-muted-foreground">
-              You currently have no tasks. Click the button "Add task" to add a
-              new task.
+              {searchTerm
+                ? `No tasks found matching "${searchTerm}"`
+                : 'You currently have no tasks. Click the button "Add task" to add a new task.'}
             </p>
           )}
         </div>
