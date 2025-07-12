@@ -3,9 +3,12 @@ import { TodoList } from "@/features/todos/components/TodoList";
 import { AddTodoForm } from "@/features/todos/components/AddTodoForm";
 import { Todo, TodoFormData } from "@/features/todos/types";
 import { getStoredData, setStoredData } from "@/lib";
+import { InputSearch } from "@/features/todos/components";
+import { Funnel } from "lucide-react";
 
 const DashboardPage = () => {
   const [tasks, setTasks] = useState<Todo[]>([]);
+  const [displayedTasks, setDisplayedTasks] = useState<Todo[]>([]);
 
   const handleToggle = (id: string) => {
     setTasks((prevTasks) => {
@@ -48,9 +51,16 @@ const DashboardPage = () => {
       createdAt: now.toLocaleTimeString(),
       date: now.toLocaleDateString("en-GB"),
     };
-    const updated = [...tasks, newTask];
-    setTasks(updated);
+    setTasks((prevTasks) => [...prevTasks, newTask]);
   };
+
+  const handleSearchResults = (searchResults: Todo[]) => {
+    setDisplayedTasks(searchResults);
+  };
+
+  useEffect(() => {
+    setDisplayedTasks(tasks);
+  }, [tasks]);
 
   useEffect(() => {
     const stored: unknown = getStoredData();
@@ -65,30 +75,43 @@ const DashboardPage = () => {
 
   return (
     <div className="flex flex-col items-start min-h-screen bg-secondary p-4">
-      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-      <p className="text-lg mb-2">Welcome to your dashboard!</p>
-      <p className="text-sm text-muted-foreground">
-        Here you can manage your todos list. Add, edit, delete your tasks and
-        more.
-      </p>
-      <div className="mt-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold mb-2">Your Tasks:</h2>
-          <AddTodoForm onAdd={(data) => handleAdd(data)} />
-        </div>
-        {tasks.length > 0 ? (
-          <TodoList
-            tasks={tasks}
-            onToggle={handleToggle}
-            onDelete={handleDelete}
-            onEdit={handleEdit}
-          />
-        ) : (
-          <p className="text-muted-foreground">
-            You currently have no tasks. Click the button "Add task" to add a
-            new task.
+      <div className="flex flex-col items-stretch w-auto">
+        <div>
+          <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+          <p className="text-lg mb-2">Welcome to your dashboard!</p>
+          <p className="text-sm text-muted-foreground">
+            Here you can manage your todos list. Add, edit, delete your tasks
+            and more.
           </p>
-        )}
+        </div>
+        <div className="mt-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold mb-2">Your Tasks:</h2>
+            <AddTodoForm onAdd={(data) => handleAdd(data)} />
+          </div>
+          <p className="text-sm text-muted-foreground mb-4">
+            You currently have {tasks.length} tasks.
+          </p>
+          <div className="flex w-full items-center justify-between gap-5 mb-4">
+            <InputSearch tasks={tasks} onSearchResults={handleSearchResults} />
+            <span>
+              <Funnel className="size-5" />
+            </span>
+          </div>
+          {tasks.length > 0 ? (
+            <TodoList
+              tasks={displayedTasks}
+              onToggle={handleToggle}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+            />
+          ) : (
+            <p className="text-muted-foreground">
+              You currently have no tasks. Click the button "Add task" to add a
+              new task.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
