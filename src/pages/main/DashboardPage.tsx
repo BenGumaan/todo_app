@@ -3,19 +3,48 @@ import { TodoList } from "@/features/todos/components/TodoList";
 import { AddTodoForm } from "@/features/todos/components/AddTodoForm";
 import { Todo, TodoFormData } from "@/features/todos/types";
 import { getStoredData, setStoredData } from "@/lib";
-import { InputSearch } from "@/features/todos/components";
-import { Funnel } from "lucide-react";
+import { InputSearch, SortControls } from "@/features/todos/components";
 
 const DashboardPage = () => {
   const [tasks, setTasks] = useState<Todo[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState<"date" | "name" | "completed">("name");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
   const displayedTasks = useMemo(() => {
-    if (!searchTerm.trim()) return tasks;
-    return tasks.filter((task) =>
-      task.text.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [tasks, searchTerm]);
+    // Filter tasks
+    let filtered = tasks;
+    if (searchTerm.trim()) {
+      filtered = tasks.filter((task) =>
+        task.text.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Sort tasks
+    return [...filtered].sort((a, b) => {
+      let comparison = 0;
+
+      switch (sortBy) {
+        case "name": {
+          const aText = a.text.toLowerCase();
+          const bText = b.text.toLowerCase();
+          comparison = aText < bText ? 1 : -1;
+          break;
+        }
+        case "date":
+          comparison =
+            new Date(a.date ?? "").getTime() - new Date(b.date ?? "").getTime();
+          break;
+        case "completed":
+          comparison = Number(a.completed) - Number(b.completed);
+          break;
+        default:
+          return 0;
+      }
+
+      return sortOrder === "asc" ? comparison : -comparison;
+    });
+  }, [tasks, searchTerm, sortBy, sortOrder]);
 
   const handleToggle = (id: string) => {
     setTasks((prevTasks) =>
@@ -89,9 +118,12 @@ const DashboardPage = () => {
           </p>
           <div className="flex w-full items-center justify-between gap-5 mb-4">
             <InputSearch value={searchTerm} onChange={setSearchTerm} />
-            <span className="bg-white p-2 rounded-md hover:bg-gray-100 transition-colors border border-gray-200 cursor-pointer">
-              <Funnel className="size-5" />
-            </span>
+            <SortControls
+              sortBy={sortBy}
+              sortOrder={sortOrder}
+              onSortByChange={setSortBy}
+              onSortOrderChange={setSortOrder}
+            />
           </div>
           {displayedTasks.length > 0 ? (
             <TodoList
