@@ -28,7 +28,7 @@ const InputSearch = ({ value, onChange, placeholder }: InputSearchProps) => {
   }, [value]);
 
   return (
-    <div className="w-full space-y-2">
+    <div className="w-full space-y-2 bg-white dark:bg-gray-800">
       <div className="relative">
         <div className="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
           <SearchIcon className="size-4" />

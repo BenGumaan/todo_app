@@ -89,7 +89,7 @@ const DashboardPage = () => {
           </p>
           <div className="flex w-full items-center justify-between gap-5 mb-4">
             <InputSearch value={searchTerm} onChange={setSearchTerm} />
-            <span>
+            <span className="bg-white p-2 rounded-md hover:bg-gray-100 transition-colors border border-gray-200 cursor-pointer">
               <Funnel className="size-5" />
             </span>
           </div>
