@@ -17,9 +17,9 @@ import { Textarea } from "@/components/ui";
 import { TodoFormData, Todo } from "@/features/todos";
 
 const categoryOptions = [
-  { label: "Home", value: "home" },
-  { label: "Work", value: "work" },
-  { label: "Personal", value: "personal" },
+  { label: "🏠 Home", value: "🏠Home" },
+  { label: "🏢 Work", value: "🏢Work" },
+  { label: "💻 Personal", value: "💻Personal" },
 ];
 
 interface EditTodoModalProps {

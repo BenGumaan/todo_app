@@ -16,9 +16,9 @@ import { FC, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
 const categoryOptions = [
-  { label: "Home", value: "home" },
-  { label: "Work", value: "work" },
-  { label: "Personal", value: "personal" },
+  { label: "🏠 Home", value: "🏠Home" },
+  { label: "🏢 Work", value: "🏢Work" },
+  { label: "💻 Personal", value: "💻Personal" },
 ];
 
 type FormData = {
