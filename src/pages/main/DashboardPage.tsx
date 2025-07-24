@@ -10,6 +10,9 @@ const DashboardPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState<"date" | "name" | "completed">("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const completedTasks = tasks.filter((task) => task.completed).length;
+  const progressPercentage =
+    tasks.length > 0 ? (completedTasks / tasks.length) * 100 : 0;
 
   const displayedTasks = useMemo(() => {
     // Filter tasks
@@ -116,6 +119,22 @@ const DashboardPage = () => {
           <p className="text-sm text-muted-foreground mb-4">
             You currently have {tasks.length} tasks.
           </p>
+          <div className="mb-4">
+            <div className="flex justify-between text-sm text-muted-foreground mb-2">
+              <span>Task Progress</span>
+              <span>
+                {Math.round(progressPercentage) === 100 ? "🎉 " : ""}
+                {completedTasks}/{tasks.length} (
+                {Math.round(progressPercentage)}%)
+              </span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-3">
+              <div
+                className="bg-green-500 h-3 rounded-full transition-all duration-300"
+                style={{ width: `${progressPercentage}%` }}
+              />
+            </div>
+          </div>
           <div className="flex w-full items-center justify-between gap-5 mb-4">
             <InputSearch value={searchTerm} onChange={setSearchTerm} />
             <SortControls
